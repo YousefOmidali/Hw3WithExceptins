@@ -1,3 +1,7 @@
+import Exceptions.InvalidScoreException;
+import Exceptions.InvalidStudentException;
+import Exceptions.InvalidUnitException;
+
 public class Methods {
     private Student[] student;
     private Master[] master;
@@ -87,7 +91,8 @@ public class Methods {
     }
 
     public void studentInfo(Integer studentIndex) {
-        System.out.println(student[studentIndex]);
+            System.out.println(student[studentIndex]);
+
     }
 
     public void viewCourseList() {
@@ -166,7 +171,7 @@ public class Methods {
     }
     public Integer studentCheck(String username, String password) {
         int checkStats=0;
-        for (int i = 0; i < masterIndex; i++) {
+        for (int i = 0; i < studentIndex; i++) {
             if (student[i].getUserName().equals(username) && student[i].getPassword().equals(password))
                 checkStats=1;
         }
@@ -174,7 +179,7 @@ public class Methods {
     }
     public Integer employeeCheck(String username, String password) {
         int checkStats=0;
-        for (int i = 0; i < masterIndex; i++) {
+        for (int i = 0; i < employeeIndex; i++) {
             if (employee[i].getUserName().equals(username) && employee[i].getPassword().equals(password))
                 checkStats=1;
         }

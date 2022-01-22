@@ -1,3 +1,5 @@
+import Exceptions.InvalidEmployeeException;
+
 public class Employee {
     private String userName ;
     private String password ;
@@ -62,5 +64,8 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +
                 '}';
+    }
+    public void InvalidEmployeeException (){
+        throw new InvalidEmployeeException("Wrong index entered! ");
     }
 }

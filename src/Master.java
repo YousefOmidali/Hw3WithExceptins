@@ -1,3 +1,5 @@
+import Exceptions.InvalidMasterException;
+
 public class Master {
     private String userName ;
     private String password ;
@@ -62,5 +64,8 @@ public class Master {
 
     public void setTedadJalasatTadris(Integer tedadJalasatTadris) {
         this.tedadJalasatTadris = tedadJalasatTadris;
+    }
+    public void invalidMaster(){
+        throw new InvalidMasterException("There is no master with this index! ");
     }
 }

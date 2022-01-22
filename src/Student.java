@@ -1,3 +1,5 @@
+import Exceptions.InvalidStudentException;
+
 public class Student {
     private String userName;
     private String password;
@@ -5,6 +7,10 @@ public class Student {
     private String lastName;
     ScoresAndCourses[] scoresAndCourses;
     private Integer scoresAndCoursesIndex = 0;
+    Methods methods = new Methods();
+
+    public Student(String username, String password, String firstName, String lastName) {
+    }
 
 
     public void saveCourseAndScore(ScoresAndCourses scoresAndCourses) {
@@ -57,6 +63,10 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void InvalidStudent(){
+       throw new InvalidStudentException("there is no student with this index! ");
     }
 
 }
