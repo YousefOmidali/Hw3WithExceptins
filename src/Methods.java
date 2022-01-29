@@ -24,7 +24,7 @@ public class Methods {
         studentIndex--;
     }
 
-    public void editStudent(Integer index, String firstName, String lastName, String username, String password) { // ************ Need Edit
+    public void editStudent(Integer index, String firstName, String lastName, String username, String password) {
         student[index].setFirstName(firstName);
         student[index].setLastName(lastName);
         student[index].setUserName(username);
@@ -37,7 +37,11 @@ public class Methods {
     }
 
     public void removeMaster(Integer index) {
-        this.master[index] = master[masterIndex];
+        for (int i =(index+1) ; i < masterIndex ; i++) {
+            master[index]=master[i];
+            index++;
+        }
+        master[(masterIndex-1)]=null;
         masterIndex--;
     }
 
@@ -56,8 +60,10 @@ public class Methods {
     }
 
     public void removeEmployee(Integer index) {
-        employee[index] = employee[employeeIndex];
-        employee[employeeIndex] = null;
+        for (int i =(index+1) ; i < employeeIndex ; i++) {
+            employee[index]=employee[i];
+        }
+        employee[(employeeIndex-1)]=null;
         employeeIndex--;
     }
 
@@ -85,8 +91,11 @@ public class Methods {
     }
 
     public void removeCourse(Integer courseIndex) {
-        listOfCourses[courseIndex] = listOfCourses[listOfCoursesIndex];
-        listOfCourses[listOfCoursesIndex] = null;
+        for (int i =(courseIndex+1) ; i < listOfCoursesIndex ; i++) {
+            listOfCourses[courseIndex]=listOfCourses[i];
+            courseIndex++;
+        }
+        master[(listOfCoursesIndex-1)]=null;
         listOfCoursesIndex--;
     }
 
@@ -161,29 +170,29 @@ public class Methods {
         return salary;
     }
 
-    public Integer masterCheck(String username, String password) {
-        int checkStats=0;
+    public Boolean masterCheck(String username, String password) {
+        Boolean status=false;
         for (int i = 0; i < masterIndex; i++) {
             if (master[i].getUserName().equals(username) && master[i].getPassword().equals(password))
-                checkStats=1;
+                status =true;
         }
-        return checkStats;
+        return status;
     }
-    public Integer studentCheck(String username, String password) {
-        int checkStats=0;
+    public Boolean studentCheck(String username, String password) {
+        boolean status = false;
         for (int i = 0; i < studentIndex; i++) {
             if (student[i].getUserName().equals(username) && student[i].getPassword().equals(password))
-                checkStats=1;
+                status=true;
         }
-        return checkStats;
+        return status;
     }
-    public Integer employeeCheck(String username, String password) {
-        int checkStats=0;
+    public Boolean employeeCheck(String username, String password) {
+        Boolean status = false;
         for (int i = 0; i < employeeIndex; i++) {
             if (employee[i].getUserName().equals(username) && employee[i].getPassword().equals(password))
-                checkStats=1;
+                status=true;
         }
-        return checkStats;
+        return status;
     }
 
 
@@ -203,5 +212,8 @@ public class Methods {
                         "\n7.Employee register \n8.Delete employee \n9.Edit employees info " +
                                 "\n10.Add a course \n11.Delete course \n12.Edit course" +
                                        "\n13.Employees payslip and info  \n.Exit");
+    }
+
+    public void signUpStudent(String username, String password, String firstName, String lastName) {
     }
 }

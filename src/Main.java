@@ -1,6 +1,7 @@
 import Exceptions.*;
 import com.sun.media.sound.InvalidFormatException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +11,7 @@ public class Main {
         boolean stats1 = true;
         boolean stats2 = false;
         int inputNumber = -1, salary, unit;
-        String firstName="", lastName="", username="", password="", courseNameInMain="",masterLevel="";
+        String firstName = "", lastName = "", username = "", password = "", courseNameInMain = "", masterLevel = "";
 
 
         while (stats1) {
@@ -20,6 +21,8 @@ public class Main {
                 inputNumber = scanner.nextInt();
             } catch (NumberFormatException e) {
                 System.out.println("invalid input! ");
+            } catch (InputMismatchException e) {
+                System.out.println("invalid input! ");
             }
 
             scanner.nextLine();
@@ -28,14 +31,11 @@ public class Main {
                 username = scanner.nextLine();
                 System.out.println("Please enter your password: ");
                 password = scanner.nextLine();
-                if (inputNumber == 1) {
-                    loginStats = methods.studentCheck(username, password);
-                    if (loginStats == 1) {
-                        stats1 = false;
-                        stats2 = true;
-                        break;
-                    }
-                }
+                if (methods.studentCheck(username, password)) {
+                    stats1 = false;
+                    stats2 = true;
+                    break;
+                }else System.out.println("Wrong username or password ");
 
 
             } else if (inputNumber == 2) {
@@ -43,8 +43,7 @@ public class Main {
                 username = scanner.nextLine();
                 System.out.println("Please enter your password: ");
                 password = scanner.nextLine();
-                loginStats = methods.masterCheck(username, password);
-                if (loginStats == 1) {
+                if (methods.masterCheck(username, password)) {
                     stats1 = false;
                     stats2 = true;
                     break;
@@ -54,14 +53,11 @@ public class Main {
                 username = scanner.nextLine();
                 System.out.println("Please enter your password: ");
                 password = scanner.nextLine();
-                loginStats = methods.employeeCheck(username, password);
-                if (loginStats == 1) {
+                if (methods.employeeCheck(username, password)) {
                     stats1 = false;
                     stats2 = true;
                     break;
                 }
-            } else {
-                System.out.println("Wrong number");
             }
         }
         while (stats2) {
@@ -76,6 +72,8 @@ public class Main {
                 index = scanner.nextInt();
             } catch (NumberFormatException e) {
                 System.out.println("invalid input! ");
+            } catch (InputMismatchException e) {
+                System.out.println("invalid input! ");
             }
 
             scanner.nextLine();
@@ -85,24 +83,32 @@ public class Main {
                     order = scanner.nextInt();
                 } catch (NumberFormatException e) {
                     System.out.println("invalid input! ");
+                } catch (InputMismatchException e) {
+                    System.out.println("invalid input! ");
                 }
                 if (order == 1) {
                     try {
                         methods.studentInfo(index);
-                    } catch (InvalidStudentException e) {
-                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        System.out.println("Null pointer exception");
+                    } catch (InputMismatchException e) {
+                        System.out.println("invalid input! ");
                     }
                 } else if (order == 2) {
                     try {
                         methods.viewCourseList();
-                    } catch (InvalidCourseListException e) {
-                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        System.out.println("Null pointer exception");
+                    } catch (InputMismatchException e) {
+                        System.out.println("invalid input! ");
                     }
                 } else if (order == 3) {
                     try {
                         System.out.println(methods.scoreAverage(index));
-                    } catch (InvalidStudentException e) {
-                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        System.out.println("Null pointer exception");
+                    } catch (InputMismatchException e) {
+                        System.out.println("invalid input! ");
                     }
                     System.out.println("Check if you can  take a specific course? Enter the course name: "); // check baraye bar nadashtane yek dars , 2 bar
                     courseNameInMain = scanner.nextLine();
@@ -123,13 +129,15 @@ public class Main {
                     index = scanner.nextInt();
                 } catch (NumberFormatException e) {
                     System.out.println("input must be a DIGIT! ");
+                } catch (InputMismatchException e) {
+                    System.out.println("invalid input! ");
                 }
                 if (order == 1)
 
                     try {
                         methods.masterInfo(index);
-                    } catch (InvalidMasterException e) {
-                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        System.out.println("Null pointer exception");;
                     }
                 else if (order == 2) {
                     try {
@@ -142,6 +150,8 @@ public class Main {
                         methods.scoreRegister(studentIndexInMain, courseName, score);
                     } catch (NumberFormatException e) {
                         System.out.println("Input must be a DIGIT! ");
+                    } catch (InputMismatchException e) {
+                        System.out.println("invalid input! ");
                     }
                 } else if (order == 3) {
 
@@ -151,8 +161,10 @@ public class Main {
                         System.out.println(methods.paySlip(index, tedadJalasatTadris));
                     } catch (NumberFormatException e) {
                         System.out.println("Input must be a DIGIT! ");
-                    } catch (InvalidMasterException e) {
-                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        System.out.println("");;
+                    } catch (InputMismatchException e) {
+                        System.out.println("invalid input! ");
                     }
                 } else if (order == 4) {
                     stats1 = true;
@@ -187,8 +199,10 @@ public class Main {
                             methods.removeStudent(index);
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
-                        } catch (NullPointerException e){
+                        } catch (NullPointerException e) {
                             System.out.println("Wrong student index (catch null pointer exception )");
+                        } catch (InputMismatchException e) {
+                            System.out.println("invalid input! ");
                         }
                     }
                     if (order == 3) {
@@ -206,6 +220,8 @@ public class Main {
                             methods.editStudent(index, firstName, lastName, username, password);
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
+                        } catch (InputMismatchException e) {
+                            System.out.println("invalid input! ");
                         }
 
                     }
@@ -220,11 +236,11 @@ public class Main {
                         password = scanner.nextLine();
                         System.out.println("Enter the level of master: ");
                         masterLevel = scanner.nextLine().toUpperCase();
-                        if (masterLevel.equals("HAGHOTADRIS")) {
-                            Master master = new Master(username, password, firstName, lastName, null, MasterLevel.HAGHOTADRIS);
+                        if (masterLevel.equals(MasterLevel.HAGHOTADRIS)) {
+                            Master master = new Master(username, password, firstName, lastName, 0, MasterLevel.HAGHOTADRIS);
                             methods.signUpMaster(master);
-                        } else if (masterLevel.equals("HEIATELMI")) {
-                            Master master = new Master(username, password, firstName, lastName, null, MasterLevel.HEIATELMI);
+                        } else if (masterLevel.equals(MasterLevel.HEIATELMI)) {
+                            Master master = new Master(username, password, firstName, lastName, 0, MasterLevel.HEIATELMI);
                             methods.signUpMaster(master);
                         }
                     }
@@ -235,8 +251,10 @@ public class Main {
                             methods.removeMaster(index);
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
-                        }catch (NullPointerException e){
+                        } catch (NullPointerException e) {
                             System.out.println("wrong master index (catch NullPointer Exception)");
+                        } catch (InputMismatchException e) {
+                            System.out.println("invalid input! ");
                         }
                     }
 
@@ -256,6 +274,8 @@ public class Main {
                             masterLevel = scanner.nextLine().toUpperCase();
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
+                        } catch (InputMismatchException e) {
+                            System.out.println("invalid input! ");
                         }
 
                         if (masterLevel.equals("HAGHOTADRIS")) {
@@ -283,6 +303,8 @@ public class Main {
                             methods.signUpEmployee(employee);
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
+                        } catch (InputMismatchException e) {
+                            System.out.println("invalid input! ");
                         }
 
                     }
@@ -294,8 +316,10 @@ public class Main {
                             methods.removeEmployee(index);
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
-                        } catch (NullPointerException e){
+                        } catch (NullPointerException e) {
                             System.out.println("wrong index! (nullPointerException)");
+                        } catch (InputMismatchException e) {
+                            System.out.println("invalid input! ");
                         }
                     }
                     if (order == 9) {
@@ -316,7 +340,7 @@ public class Main {
                             methods.editEmployee(index, employee);
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
-                        } catch (NullPointerException e){
+                        } catch (NullPointerException e) {
                             System.out.println("Wrong index! (NullPointerException)");
                         }
 
@@ -340,7 +364,7 @@ public class Main {
                             System.out.println("Enter the index of course: ");
                         } catch (InvalidCourseException e) {
                             e.printStackTrace();
-                        } catch (NullPointerException e ){
+                        } catch (NullPointerException e) {
                             System.out.println("Invalid course (wrong index entered!) ");//nullPointerException
                         }
 
@@ -357,7 +381,7 @@ public class Main {
                             methods.editCourse(index, courseNameInMain, unit);
                         } catch (InvalidCourseException e) {
                             e.printStackTrace();
-                        }catch (NullPointerException e){
+                        } catch (NullPointerException e) {
                             System.out.println("Invalid course (wrong index!)");//NullPointerException
                         }
 
@@ -373,7 +397,7 @@ public class Main {
                             }
                         } catch (NumberFormatException e) {
                             System.out.println("Input must be a DIGIT! ");
-                        } catch (InvalidEmployeeException e){
+                        } catch (InvalidEmployeeException e) {
                             e.printStackTrace();
                         }
 

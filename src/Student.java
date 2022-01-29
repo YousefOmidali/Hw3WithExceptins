@@ -7,7 +7,6 @@ public class Student {
     private String lastName;
     ScoresAndCourses[] scoresAndCourses;
     private Integer scoresAndCoursesIndex = 0;
-    Methods methods = new Methods();
 
     public Student(String username, String password, String firstName, String lastName) {
     }
